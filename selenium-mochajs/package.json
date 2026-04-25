@@ -1,14 +1,14 @@
 {
-  "name": "macos-selenium-mochajs",
+  "name": "chromedriver-perf-regression-repro",
   "version": "1.0.0",
-  "description": "A template for reproducing ChromeDriver bugs on macOS with Selenium and MochaJS.",
+  "description": "Reproduction for Chromium issue 499572770: WebDriver moveTo/click 100-300x slower on Chrome 146+",
   "main": "index.js",
   "scripts": {
     "test": "mocha test.js",
     "format": "prettier --write test.js"
   },
   "keywords": [],
-  "author": "Alex N. Jose (alexnj@google.com)",
+  "author": "",
   "license": "Apache-2.0",
   "dependencies": {
     "chai": "^4.3.7",
