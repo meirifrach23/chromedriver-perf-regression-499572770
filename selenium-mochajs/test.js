@@ -14,9 +14,10 @@ const { Builder, By, until } = require('selenium-webdriver');
 const { expect } = require('expect');
 const chrome = require('selenium-webdriver/chrome');
 
-// Thresholds: anything above these indicates the regression
-const MOVE_TO_THRESHOLD_MS = 200;
-const CLICK_THRESHOLD_MS = 200;
+// Thresholds: Chrome 145 baseline is < 10ms for both commands.
+// 30ms allows for CI runner variance while still catching the regression.
+const MOVE_TO_THRESHOLD_MS = 30;
+const CLICK_THRESHOLD_MS = 30;
 const ELEMENT_COUNT = 15;
 
 describe('Chromium Issue 499572770 — WebDriver Performance Regression', function () {
@@ -53,7 +54,7 @@ describe('Chromium Issue 499572770 — WebDriver Performance Regression', functi
     expect(title).toBe('Google');
   });
 
-  it('PERF BUG: moveTo (pointerMove) should average < 200ms per element', async function () {
+  it('PERF BUG: moveTo (pointerMove) should average < 30ms per element', async function () {
     // Use a page with a large visible table — no hidden skip-nav links
     await driver.get('https://the-internet.herokuapp.com/large');
     await driver.wait(until.elementLocated(By.css('td')), 10000);
@@ -82,7 +83,7 @@ describe('Chromium Issue 499572770 — WebDriver Performance Regression', functi
     expect(avg).toBeLessThan(MOVE_TO_THRESHOLD_MS);
   });
 
-  it('PERF BUG: element.click should average < 200ms per element', async function () {
+  it('PERF BUG: element.click should average < 30ms per element', async function () {
     // Use a page with many clickable elements (checkboxes)
     await driver.get('https://the-internet.herokuapp.com/checkboxes');
     await driver.wait(until.elementLocated(By.css('input[type="checkbox"]')), 10000);
